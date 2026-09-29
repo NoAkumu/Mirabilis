@@ -125,6 +125,22 @@ class Physics : public Component
         void AddForce(Vector2 f);
         Vector2 GetVelocity();
 };
+
+// Camera Component Class
+class Camera : public Component
+{
+    private:
+        sf::View CameraView;
+    public:
+        float aspectRatio = 16.0f/9.0f;
+        float viewHeight = 600.0f;
+        Camera() {};
+        Camera(float viewHeight) : viewHeight(viewHeight) {};
+        Camera(float viewHeight, float aspectRatio) : viewHeight(viewHeight), aspectRatio(aspectRatio)  {};
+        virtual ~Camera() = default;
+        virtual void Update();
+};
+
 // ScriptBehavior Component Class
 class ScriptBehavior : public Component
 {
@@ -136,4 +152,6 @@ class ScriptBehavior : public Component
         virtual void FixedUpdate() {};
         virtual void Update() {};
         virtual void LateUpdate() {};
+        void SetCameraView();
 };
+

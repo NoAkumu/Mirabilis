@@ -7,12 +7,18 @@
 #include "engine/core/Time.hpp"
 #include <SFML/Graphics.hpp>
 
+#pragma region Universal
+
 bool Component::IsEnabled() {
     return Component::enabled;
 }
 void Component::SetEnabled(bool value) {
     Component::enabled = value;
 }
+
+#pragma endregion
+
+#pragma region Sprite
 
 // Sprite
 void Sprite::Render() {
@@ -23,6 +29,10 @@ void Sprite::Render() {
     });
     Main_Window.draw(sprite);
 }
+
+#pragma endregion
+
+#pragma region Physics
 
 // Physics
 bool pressed = false;
@@ -58,3 +68,17 @@ void Physics::AddForce(Vector2 f) {
 Vector2 Physics::GetVelocity() {
     return velocity;
 };
+
+#pragma endregion
+
+#pragma region Camera
+
+void Camera::Update() {
+    CameraView.setCenter(owner->Position);
+    CameraView.setSize(Vector2(static_cast<float>(Config.WIDTH)/Config.HEIGHT,1) * viewHeight);
+    Main_Window.setView(CameraView);
+}
+
+#pragma endregion
+// Camera
+
