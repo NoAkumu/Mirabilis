@@ -68,9 +68,9 @@ It isn't usable to create real games at the moment, it's just the base of the en
     - [ ] Changing rendering system to only OpenGL without SFML
 * [x] Basic Physics
 * [x] Input
+* [x] Camera Component
+* [x] Window management
 * [ ] Scene management
-* [ ] Camera management
-* [ ] Window management
 * [ ] Audio
 * [ ] Editor
 * [ ] Asset pipeline
