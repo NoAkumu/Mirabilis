@@ -7,7 +7,7 @@ LDLIBS := -lsfml-graphics -lsfml-window -lsfml-system -ltinyxml2
 
 TARGET := game
 
-SOURCE := $(wildcard src/*.cpp src/engine/*.cpp)
+SOURCE := $(shell find src -type f -name '*.cpp')
 OBJECTS := $(SOURCE:.cpp=.o)
 
 .PHONY: all clean run delete
