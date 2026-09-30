@@ -20,7 +20,6 @@ void Component::SetEnabled(bool value) {
 
 #pragma region Sprite
 
-// Sprite
 void Sprite::Render() {
     sprite.setPosition(owner->Position - (owner->Size * owner->AnchorPoint));
     sprite.setScale({
@@ -34,7 +33,6 @@ void Sprite::Render() {
 
 #pragma region Physics
 
-// Physics
 bool pressed = false;
 void Physics::Awake() {
     collision = owner->GetComponent<Collision>();
@@ -80,5 +78,4 @@ void Camera::Update() {
 }
 
 #pragma endregion
-// Camera
 

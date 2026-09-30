@@ -86,6 +86,8 @@ int main() {
     bool saved = Save(Config);
     if (saved) {
         Print("Saved Config Sucessfully!");
+    } else {
+        Print("There was an error when trying to save the config");
     }
 }
 
