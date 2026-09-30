@@ -8,3 +8,4 @@
 #include "engine/core/Utils.hpp"
 #include "engine/core/Time.hpp"
 #include "engine/core/Event.hpp"
+#include "engine/core/Scene.hpp"
