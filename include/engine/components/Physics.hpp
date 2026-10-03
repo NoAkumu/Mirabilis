@@ -17,6 +17,6 @@ class Physics : public Component
         Physics() = default;
         virtual void Awake();
         virtual void FixedUpdate();
-        void AddForce(Vector2 f);
-        Vector2 GetVelocity();
+        void AddVelocity(Vector2 v);
+        Vector2 GetVelocity() const&;
 };
