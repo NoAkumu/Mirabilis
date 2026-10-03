@@ -2,7 +2,6 @@
 
 #include "engine/core/Window.hpp"
 #include "engine/core/ObjectManager.hpp"
-#include "engine/core/Components.hpp"
 #include "engine/core/Object.hpp"
 #include "engine/core/Settings.hpp"
 #include "engine/core/Utils.hpp"

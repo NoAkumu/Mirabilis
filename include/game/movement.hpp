@@ -1,5 +1,5 @@
 #pragma once 
-#include "engine/core/Components.hpp"
+#include "engine/components/ScriptBehavior.hpp"
 
 class Movement : public ScriptBehavior {
     public:
