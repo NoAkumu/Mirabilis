@@ -2,11 +2,8 @@
 #include "engine/Engine.hpp"
 #include "game/Game.hpp"
 
-Object& a = gameObjects.create(Vector2(0,0), Vector2(50,50));
-
 // Start when the game starts
 void Awake() {
-    //a.AddComponent<Sprite>("/Debug.png");
     // Calls Awake() in all objects
     gameObjects.AwakeAll();
 }
@@ -16,7 +13,7 @@ void FixedUpdate() {
     gameObjects.FixedUpdateAll();
 }
 // Render Step
-void Render(sf::RenderWindow& _window) {
+void Render() {
     // Rendering all objects
     gameObjects.RenderAll();
 }
@@ -47,8 +44,8 @@ int main() {
     Main_Window.setPosition(sf::Vector2i((desktop.size.x/2)-(Config.WIDTH/2),(desktop.size.y/2)-(Config.HEIGHT/2)));
     Main_Window.setFramerateLimit(Config.maxFPS);
     Time::fixedDt = 1.0f/ static_cast<float>(Config.maxFPS);
-
-    // Functions
+    
+    // Functions    
     Awake(); // This should be run after object loading
 
     while (Main_Window.isOpen())
@@ -78,7 +75,7 @@ int main() {
             accumulator -= Time::fixedDt;
         }
         // Update Steps
-        Render(Main_Window);
+        Render();
         Update();
         LateUpdate();
         
@@ -89,6 +86,8 @@ int main() {
     bool saved = Save(Config);
     if (saved) {
         Print("Saved Config Sucessfully!");
+    } else {
+        Print("There was an error when trying to save the config");
     }
 }
 

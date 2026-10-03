@@ -6,11 +6,7 @@ void Object::Awake(){
         comp->Awake();
     }
 }
-void Object::Start(){
-    for(auto& comp : components) {
-        comp->Start();
-    }
-}
+void Object::Start(){}
 void Object::FixedUpdate() {
     // Physics stuff goes here i guess
     for(auto& comp : components) {

@@ -4,3 +4,4 @@
 *.desktop
 .vscode
 ./run.sh
+game.out

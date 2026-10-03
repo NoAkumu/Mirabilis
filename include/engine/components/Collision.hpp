@@ -1,25 +1,7 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "engine/core/Object.hpp"
-#include "engine/core/ComponentParts.hpp"
-#include "engine/core/Utils.hpp"
 #include "engine/core/Event.hpp"
-#include <iostream>
-#include <string>
-using namespace std;
 
-// Sprite Component Class
-class Sprite : public Component, public Renderable
-{
-    protected:
-        sf::Texture texture;
-        sf::Sprite sprite;
-        string texturePath = "Debug.png";
-    public:
-        Sprite(string texturePath) : texturePath(texturePath), texture(LoadTexture(texturePath)), sprite(texture) {};
-        virtual ~Sprite() = default;
-        void Render() override;
-};
 // Collision Component Class
 struct CollisionData
 {
@@ -42,7 +24,6 @@ class Collision : public Component
             min = owner->Position - (owner->Size * owner->AnchorPoint);
             max = min + owner->Size;
         }
-        virtual ~Collision() = default;
         Event<const CollisionData&> OnCollide;
         Vector2 Center() {
             return (min + max)/2;
@@ -105,35 +86,4 @@ class Collision : public Component
             }
             OnCollide.Fire(CollisionData(this, &other, overlap, CalculateNormal(other)));
         }
-};
-// Physics Component Class
-class Physics : public Component
-{
-    protected:
-        Collision* collision = nullptr;
-        Vector2 velocity;
-        Vector2 acceleration;
-        float gravity = 981.0f;
-        float ApplyGravity();
-        float mass = 1.0f;
-    public:
-        bool EnableGravity = true;
-        Physics() = default;
-        virtual ~Physics() = default;
-        virtual void Awake();
-        virtual void FixedUpdate();
-        void AddForce(Vector2 f);
-        Vector2 GetVelocity();
-};
-// ScriptBehavior Component Class
-class ScriptBehavior : public Component
-{
-    public:
-        ScriptBehavior() = default;
-        ~ScriptBehavior() = default;
-        virtual void Awake() {};
-        virtual void Start() {};
-        virtual void FixedUpdate() {};
-        virtual void Update() {};
-        virtual void LateUpdate() {};
 };
