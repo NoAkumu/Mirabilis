@@ -53,7 +53,7 @@ make && make run
 ```
 Or build it first then run
 ```shell
-./game
+./game.out
 ```
 
 ## Usage

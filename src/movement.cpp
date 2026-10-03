@@ -18,7 +18,7 @@ void Movement::Update() {
     {
         if (CheckLineCast(Ray(Vector2(owner->Position.x, owner->Position.y + owner->Size.y + 1.0f),Vector2(0.0f, 1.0f)), 1.0f) || CheckLineCast(Ray(Vector2(owner->Position.x + owner->Size.x, owner->Position.y + owner->Size.y + 1.0f),Vector2(0.0f, 1.0f)), 1.0f))
         {
-            phys->AddForce(Vector2(0, -500.0f));
+            phys->AddVelocity(Vector2(0, -500.0f));
         }
         
     }
