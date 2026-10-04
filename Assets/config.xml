@@ -2,4 +2,5 @@
     <width>1280</width>
     <height>720</height>
     <fullscreen>0</fullscreen>
+    <maxFPS>165</maxFPS>
 </config>

@@ -5,6 +5,7 @@
 #include "engine/core/Utils.hpp"
 #include <vector>
 #include <memory>
+#include <algorithm>
 #include <utility>
 
 class Object;
@@ -31,8 +32,9 @@ class Component
         virtual void FixedUpdate() {};
         virtual void Update() {};
         virtual void LateUpdate() {};
+        virtual void OnDestroy() {};
         // Functions
-        bool IsEnabled();
+        bool IsEnabled() const;
         void SetEnabled(bool value);
         Object* Owner() {
             return owner;
@@ -72,7 +74,7 @@ class Object {
         // Component-related functions
         template <typename T, typename... Args>
         T& AddComponent(Args&&... args) {
-            static_assert(std::is_base_of_v<Component, T>,"Class is not a Valid Component");
+            static_assert(std::is_base_of_v<Component, T>,"T is not a Valid Component");
 
             auto obj = std::make_unique<T>(std::forward<Args>(args)...);
 
@@ -88,12 +90,33 @@ class Object {
         };
         template <typename T>
         T* GetComponent() const {
-            for(auto& comp : components) {
-                if (T* result = dynamic_cast<T*>(comp.get()))
-                {
-                    return result;
+            static_assert(std::is_base_of_v<Component, T>, "T is not a valid Component");
+            auto it = std::find_if(
+                components.begin(),
+                components.end(),
+                [](const auto& comp) {
+                    return dynamic_cast<T*>(comp.get()) != nullptr;
                 }
-            }
-            return nullptr;
+            );
+            if (it == components.end())
+                return nullptr;
+            
+            return dynamic_cast<T*>(it->get());
+        };
+        template <typename T>
+        void RemoveComponent() {
+            static_assert(std::is_base_of_v<Component, T>, "T is not a valid Component");
+            auto it = std::find_if(
+                components.begin(),
+                components.end(),
+                [](const auto& comp) {
+                    return dynamic_cast<T*>(comp.get()) != nullptr;
+                }
+            );
+            if (it == components.end())
+                return;
+
+            (*it)->OnDestroy();
+            components.erase(it);
         };
 };
