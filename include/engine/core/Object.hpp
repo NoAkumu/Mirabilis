@@ -64,7 +64,6 @@ class Object {
         Vector2 Size;
         sf::Color Color = sf::Color::Black;
         // Functions
-        virtual void Awake();
         virtual void Start();
         virtual void FixedUpdate();
         virtual void Update();

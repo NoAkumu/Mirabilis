@@ -19,11 +19,6 @@ class  ObjectManager {
 
             return reference;
         };
-        void AwakeAll() {
-            for(auto& obj : objects) {
-                obj->Awake();
-            }
-        };
         void FixedUpdateAll() {
             for(auto& obj : objects) {
                 obj->FixedUpdate();

@@ -1,12 +1,11 @@
 #include "engine/core/Object.hpp"
 #include "engine/core/ComponentParts.hpp"
 
-void Object::Awake(){
+void Object::Start(){
     for(auto& comp : components) {
         comp->Awake();
     }
 }
-void Object::Start(){}
 void Object::FixedUpdate() {
     // Physics stuff goes here i guess
     for(auto& comp : components) {

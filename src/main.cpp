@@ -2,12 +2,6 @@
 #include "engine/Engine.hpp"
 #include "game/Game.hpp"
 
-// Start when the game starts
-void Awake() {
-    // Calls Awake() in all objects
-    gameObjects.AwakeAll();
-}
-
 // Physics Step
 void FixedUpdate() {
     gameObjects.FixedUpdateAll();
@@ -44,9 +38,6 @@ int main() {
     Main_Window.setPosition(sf::Vector2i((desktop.size.x/2)-(Config.WIDTH/2),(desktop.size.y/2)-(Config.HEIGHT/2)));
     Main_Window.setFramerateLimit(Config.maxFPS);
     Time::fixedDt = 1.0f/ static_cast<float>(Config.maxFPS);
-    
-    // Functions    
-    Awake(); // This should be run after object loading
 
     while (Main_Window.isOpen())
     {
