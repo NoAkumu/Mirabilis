@@ -88,7 +88,7 @@ class Object {
             return reference;
         };
         template <typename T>
-        T* GetComponent() {
+        T* GetComponent() const {
             for(auto& comp : components) {
                 if (T* result = dynamic_cast<T*>(comp.get()))
                 {

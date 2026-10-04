@@ -51,6 +51,8 @@ Configs Load() {
     // Setting Screen Width and Height
     c.WIDTH = GetIntXML(conf, "width");    
     c.HEIGHT = GetIntXML(conf, "height");
+    // Setting MaxFPS
+    c.maxFPS = GetIntXML(conf, "maxFPS");
     // Setting Fullscreen
     c.Fullscreen = GetBoolXML(conf, "fullscreen");
 
@@ -94,6 +96,9 @@ bool Save(Configs c) {
     width->SetText(c.WIDTH);
     XMLElement* height = SetValue(doc, conf, "height");
     height->SetText(c.HEIGHT);
+    // Setting MaxFPS
+    XMLElement* m_FPS = SetValue(doc, conf, "maxFPS");
+    m_FPS->SetText(c.maxFPS);
     //Setting Fullscreen value
     XMLElement* fullscreen = SetValue(doc, conf, "fullscreen");
     fullscreen->SetText(c.Fullscreen ? 1 : 0);

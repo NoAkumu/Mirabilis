@@ -58,7 +58,7 @@ void Print(const Args&... args) {
 template <typename... Args>
 void Error(const Args&... args) {
     // Prefix
-    cout << TERMINALCOLOR_BG_RED << TERMINALCOLOR_BOLD << TERMINALCOLOR_BRIGHT_WHITE << "WARNING: ";
+    cout << TERMINALCOLOR_BG_RED << TERMINALCOLOR_BOLD << TERMINALCOLOR_BRIGHT_WHITE << "ERROR: ";
     // Message
     (cout << ... << args);
     // Resets and newline
@@ -67,7 +67,7 @@ void Error(const Args&... args) {
 template <typename... Args>
 void Warn(const Args&... args) {
     // Prefix
-    cout << TERMINALCOLOR_BG_YELLOW << TERMINALCOLOR_BOLD << TERMINALCOLOR_BRIGHT_WHITE << "ERROR: ";
+    cout << TERMINALCOLOR_BG_YELLOW << TERMINALCOLOR_BOLD << TERMINALCOLOR_BRIGHT_WHITE << "WARNING: ";
     // Message
     (cout << ... << args);
     // Resets and newline

@@ -4,4 +4,5 @@
 
 namespace Math {
     bool IsBetween(float x, float min, float max);
+    bool IsBetweenExclusive(float x, float min, float max);
 };

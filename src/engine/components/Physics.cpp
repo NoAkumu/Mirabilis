@@ -6,7 +6,7 @@ void Physics::Awake() {
 
     assert(collision != nullptr);
     
-    collision->OnCollide.Subscribe([&](const CollisionData& a) {
+    collision->OnCollide.Subscribe([this](const CollisionData& a) {
         if(a.normal.x != 0 && velocity.x * a.normal.x > 0.0f) {
             velocity.x = 0;
         }
@@ -30,6 +30,6 @@ void Physics::AddVelocity(Vector2 v) {
     velocity += v;
 };
 
-Vector2 Physics::GetVelocity() const& {
+Vector2 Physics::GetVelocity() const {
     return velocity;
 };

@@ -18,5 +18,5 @@ class Physics : public Component
         virtual void Awake();
         virtual void FixedUpdate();
         void AddVelocity(Vector2 v);
-        Vector2 GetVelocity() const&;
+        Vector2 GetVelocity() const;
 };

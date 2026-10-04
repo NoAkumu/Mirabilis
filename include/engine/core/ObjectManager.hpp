@@ -71,7 +71,7 @@ class  ObjectManager {
                 obj->Render();
             }
         };
-        const std::vector<std::unique_ptr<Object>>& GetObjects() {
+        const std::vector<std::unique_ptr<Object>>& GetObjects() const {
             return objects;
         };
     private:
