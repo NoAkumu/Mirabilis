@@ -3,10 +3,5 @@
 *.directory
 *.desktop
 .vscode
-venv
 ./run.sh
 game.out
-site
-assets
-docs
-mkdocs.yml
