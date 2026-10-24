@@ -3,8 +3,9 @@
 #include <string>
 #include "tinyxml2.h"
 
-std::string AssetPath = "Assets";
-string SpritePath = AssetPath + "/Sprites";
+std::string AssetPath = "assets";
+std::string SpritePath = AssetPath + "/Sprites";
+std::string configPath = AssetPath+"/config.xml";
 
 using namespace tinyxml2;
 
@@ -36,7 +37,8 @@ Configs Load() {
     XMLDocument doc;
 
     // Loading File
-    XMLError result = doc.LoadFile("Assets/config.xml");
+   
+    XMLError result = doc.LoadFile(configPath.c_str());
     if (result != XML_SUCCESS)
     {
         throw std::runtime_error("Error: Couldn't load Config file (should be located at 'Assets/config.xml')");
@@ -83,10 +85,10 @@ bool Save(Configs c) {
     XMLDocument doc;
 
     // Loading File
-    XMLError result = doc.LoadFile("Assets/config.xml");
+    XMLError result = doc.LoadFile(configPath.c_str());
     if (result != XML_SUCCESS)
     {
-        throw std::runtime_error("Error: Couldn't load Config file (should be located at 'Assets/config.xml')");
+        throw std::runtime_error("Error: Couldn't save Config file (should be located at 'Assets/config.xml')");
     }
 
     // Setting <config> header
@@ -103,5 +105,5 @@ bool Save(Configs c) {
     XMLElement* fullscreen = SetValue(doc, conf, "fullscreen");
     fullscreen->SetText(c.Fullscreen ? 1 : 0);
 
-    return doc.SaveFile("Assets/config.xml") == XML_SUCCESS;
+    return doc.SaveFile(configPath.c_str()) == XML_SUCCESS;
 }

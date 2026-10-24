@@ -15,6 +15,7 @@ class Event
         ConnectionId Subscribe(Listener listener) {
             const ConnectionId id = nextId++;
             listeners.emplace(id, std::move(listener));
+            nextId = id;
             return id;
         }
         void Fire(Args... args) {

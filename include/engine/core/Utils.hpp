@@ -71,6 +71,6 @@ void Warn(const Args&... args) {
     // Message
     (cout << ... << args);
     // Resets and newline
-    cout << TERMINALCOLOR_RESET << endl;;
+    cout << TERMINALCOLOR_RESET << endl;
 }
 sf::Texture LoadTexture(const std::string& path);

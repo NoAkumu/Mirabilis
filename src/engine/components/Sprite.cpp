@@ -6,5 +6,5 @@ void Sprite::Render() {
         owner->Size.x / static_cast<float>(texture.getSize().x),
         owner->Size.y / static_cast<float>(texture.getSize().y)
     });
-    Main_Window.draw(sprite);
 }
+
