@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "engine/renderer/Renderer.hpp"
 #include "engine/math/Math.hpp"
 #include "engine/components/Components.hpp"
 #include "engine/core/EngineCore.hpp"
