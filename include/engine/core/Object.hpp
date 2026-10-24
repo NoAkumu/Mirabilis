@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "engine/math/Vector2.hpp"
-#include "engine/core/Window.hpp"
 #include "engine/core/Utils.hpp"
 #include <vector>
 #include <memory>
@@ -116,7 +115,7 @@ class Object {
             if (it == components.end())
                 return;
 
-            (*it)->OnDestroy();
+            (*it).get()->OnDestroy();
             components.erase(it);
         };
 };
