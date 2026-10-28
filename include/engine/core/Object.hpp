@@ -4,6 +4,7 @@
 #include "engine/core/Utils.hpp"
 #include <vector>
 #include <memory>
+#include <string>
 #include <algorithm>
 #include <utility>
 
@@ -57,9 +58,9 @@ class Object {
         }
         // Destructor
         virtual ~Object() = default;
+        
         // Object info
-
-        char* Name = "Default";
+        std::string Name = "Default";
         Vector2 Position;
         Vector2 AnchorPoint;
         Vector2 Size;
