@@ -59,6 +59,6 @@ class Vector2 {
             return std::sqrt(std::pow(x,2)+std::pow(y,2));
         }
         Vector2 normalized() const {
-            return Vector2(x,y)/length();
+            return length() ? Vector2(x,y)/length() : Vector2();
         }
 };
