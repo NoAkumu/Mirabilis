@@ -11,5 +11,4 @@ class ScriptBehavior : public Component
         virtual void FixedUpdate() {};
         virtual void Update() {};
         virtual void LateUpdate() {};
-        void SetCameraView();
 };
