@@ -7,6 +7,7 @@ class Physics : public Component
 {
     protected:
         Collision* collision = nullptr;
+        size_t connectionId;
         Vector2 velocity;
         Vector2 acceleration;
         float gravity = 981.0f;
@@ -17,6 +18,7 @@ class Physics : public Component
         Physics() = default;
         virtual void Awake();
         virtual void FixedUpdate();
+        virtual void OnDestroy();
         void AddVelocity(Vector2 v);
         Vector2 GetVelocity() const;
 };
