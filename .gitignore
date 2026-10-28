@@ -5,3 +5,4 @@
 .vscode
 ./run.sh
 game.out
+*.code-workspace
