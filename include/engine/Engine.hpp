@@ -8,5 +8,3 @@
 #include "engine/core/EngineCore.hpp"
 #include "engine/input/Input.hpp"
 #include "engine/physics/Raycast.hpp"
-
-using namespace std;
