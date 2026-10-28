@@ -9,18 +9,27 @@ std::string configPath = AssetPath+"/config.xml";
 
 using namespace tinyxml2;
 
-int GetIntXML(XMLElement* from, const char* key) {
-    int _value;
-    XMLElement* element = from->FirstChildElement(key);
-    if (element)
-    {
-        element->QueryIntText(&_value);
-    }
+int GetIntXML(XMLElement* from, std::string key) {
+    int _value = 0;
+    XMLElement* element = from->FirstChildElement(key.c_str());
+    if (!element)
+        return _value;
+    if (element->QueryIntText(&_value) != XML_SUCCESS)
+        return 0;
     return _value;
 }
-int GetBoolXML(XMLElement* from, const char* key) {
-    bool _value;
-    XMLElement* element = from->FirstChildElement(key);
+int GetIntXML(XMLElement* from, std::string key, int default_value) {
+    int _value = default_value;
+    XMLElement* element = from->FirstChildElement(key.c_str());
+    if (!element)
+        return _value;
+    if (element->QueryIntText(&_value) != XML_SUCCESS)
+        return default_value;
+    return _value;
+}
+bool GetBoolXML(XMLElement* from, std::string key, bool default_value = false) {
+    bool _value = default_value;
+    XMLElement* element = from->FirstChildElement(key.c_str());
     if (element && element->GetText()) {
         std::string value = element->GetText();
 
@@ -51,34 +60,34 @@ Configs Load() {
     }
 
     // Setting Screen Width and Height
-    c.WIDTH = GetIntXML(conf, "width");    
-    c.HEIGHT = GetIntXML(conf, "height");
+    c.WIDTH = GetIntXML(conf, "width", 1280);    
+    c.HEIGHT = GetIntXML(conf, "height", 720);
     // Setting MaxFPS
-    c.maxFPS = GetIntXML(conf, "maxFPS");
+    c.maxFPS = GetIntXML(conf, "maxFPS", 60);
     // Setting Fullscreen
     c.Fullscreen = GetBoolXML(conf, "fullscreen");
 
     return c;
 }
 
-XMLElement* SetValue(XMLDocument& doc, char* key) {
-    XMLElement* elem = doc.FirstChildElement(key);
+XMLElement* SetValue(XMLDocument& doc, std::string key) {
+    XMLElement* elem = doc.FirstChildElement(key.c_str());
     if (elem == nullptr) {
-        elem = doc.NewElement(key);
+        elem = doc.NewElement(key.c_str());
         doc.InsertFirstChild(elem);
     }
 
     return elem;
 }
 
-XMLElement* SetValue(XMLDocument& doc, XMLElement* elmnt, char* key) {
-    XMLElement* elem = elmnt->FirstChildElement(key);
+void SetValue(XMLDocument& doc, XMLElement* elmnt, std::string key, auto value) {
+    XMLElement* elem = elmnt->FirstChildElement(key.c_str());
     if (elem == nullptr) {
         elem = doc.NewElement(key);
         elmnt->InsertEndChild(elem);
     }
-
-    return elem;
+    
+    elem->SetText(std::to_string(value).c_str())
 }
 
 bool Save(Configs c) {
@@ -94,16 +103,12 @@ bool Save(Configs c) {
     // Setting <config> header
     XMLElement* conf = SetValue(doc, "config");
     // Setting Screen Width and Height
-    XMLElement* width = SetValue(doc, conf, "width");
-    width->SetText(c.WIDTH);
-    XMLElement* height = SetValue(doc, conf, "height");
-    height->SetText(c.HEIGHT);
+    SetValue(doc, conf, "width", c.WIDTH);
+    SetValue(doc, conf, "height", c.HEIGHT);
     // Setting MaxFPS
-    XMLElement* m_FPS = SetValue(doc, conf, "maxFPS");
-    m_FPS->SetText(c.maxFPS);
+    SetValue(doc, conf, "maxFPS", c.maxFPS);
     //Setting Fullscreen value
-    XMLElement* fullscreen = SetValue(doc, conf, "fullscreen");
-    fullscreen->SetText(c.Fullscreen ? 1 : 0);
+    SetValue(doc, conf, "fullscreen", c.Fullscreen ? 1 : 0);
 
     return doc.SaveFile(configPath.c_str()) == XML_SUCCESS;
 }
