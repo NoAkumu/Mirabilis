@@ -27,6 +27,11 @@ void Object::LateUpdate() {
 }
 
 void Object::OnDestroy() {
+    if (destroyed)
+        return;
+    
+    destroyed = true;
+
     for(auto& comp : components) {
         comp->OnDestroy();
     }

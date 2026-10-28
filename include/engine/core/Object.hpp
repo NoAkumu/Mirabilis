@@ -43,6 +43,8 @@ class Component
 
 /*Object Class*/
 class Object {
+    private:
+        bool destroyed = false;
     protected:
         sf::RectangleShape shape;
         std::vector<std::unique_ptr<Component>> components;
@@ -57,7 +59,9 @@ class Object {
             shape.setSize(size);
         }
         // Destructor
-        virtual ~Object() = default;
+        virtual ~Object() {
+            OnDestroy();
+        };
         
         // Object info
         std::string Name = "Default";
