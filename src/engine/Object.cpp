@@ -26,6 +26,13 @@ void Object::LateUpdate() {
     }
 }
 
+void Object::OnDestroy() {
+    for(auto& comp : components) {
+        comp->OnDestroy();
+    }
+}
+
+
 void Object::Render() {
     for (auto& comp : components)
     {

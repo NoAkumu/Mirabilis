@@ -71,6 +71,7 @@ class Object {
         virtual void Update();
         virtual void LateUpdate();
         virtual void Render();
+        virtual void OnDestroy();
         // Component-related functions
         template <typename T, typename... Args>
         T& AddComponent(Args&&... args) {
