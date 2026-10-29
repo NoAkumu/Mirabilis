@@ -34,26 +34,28 @@ class Event
                 if (listeners[i].active)
                     listeners[i].cb(args...);
             }
-            std::eraseif(listeners, [](const Listener& l)
+            std::erase_if(listeners, [](const Listener& l)
             {
                 return !l.active;
-            })
+            });
         }
         void Unsubscribe(ConnectionId id) {
-            for (Listener l : listeners)
+            const auto count = listeners.size();
+            for (std::size_t i = 0; i < count; i++)
             {
-                if (l.id == listeners)
+                if (listeners[i].id == id)
                 {
-                    l.active = false;
+                    listeners[i].active = false;
                     break;
                 }
             }
             
         }
         void Clear() {
-            for (Listener l : listeners)
+            const auto count = listeners.size();
+            for (std::size_t i = 0; i < count; i++)
             {
-                l.active = false;
+                listeners[i].active = false;
             }
         }
 
