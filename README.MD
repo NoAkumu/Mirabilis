@@ -36,7 +36,7 @@ APIs, systems, and internal architecture may change significantly as development
 ## Building
 
 ### Requirements
-
+* C++ 20
 * [SFML 3](https://github.com/SFML/SFML)
 * [TinyXML2](https://github.com/leethomason/tinyxml2)
 
