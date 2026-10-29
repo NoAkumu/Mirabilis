@@ -44,33 +44,31 @@
 #define TERMINALCOLOR_BG_CYAN        "\033[48;5;51m"
 #define TERMINALCOLOR_BG_WHITE       "\033[48;5;15m"
 
-using namespace std;
-
 template <typename... Args>
 void Print(const Args&... args) {
     // Prefix
-    cout << TERMINALCOLOR_BOLD << TERMINALCOLOR_BRIGHT_MAGENTA << "LOG: " << TERMINALCOLOR_RESET;
+    std::cout << TERMINALCOLOR_BOLD << TERMINALCOLOR_BRIGHT_MAGENTA << "LOG: " << TERMINALCOLOR_RESET;
     // Message
-    (cout << ... << args);
+    (std::cout << ... << args);
     // Resets and newline
-    cout << endl;
+    std::cout << std::cout;
 }
 template <typename... Args>
 void Error(const Args&... args) {
     // Prefix
-    cout << TERMINALCOLOR_BG_RED << TERMINALCOLOR_BOLD << TERMINALCOLOR_BRIGHT_WHITE << "ERROR: ";
+    std::cout << TERMINALCOLOR_BG_RED << TERMINALCOLOR_BOLD << TERMINALCOLOR_BRIGHT_WHITE << "ERROR: ";
     // Message
-    (cout << ... << args);
+    (std::cout << ... << args);
     // Resets and newline
-    cout << TERMINALCOLOR_RESET << endl;
+    std::cout << TERMINALCOLOR_RESET << std::cout;
 }
 template <typename... Args>
 void Warn(const Args&... args) {
     // Prefix
-    cout << TERMINALCOLOR_BG_YELLOW << TERMINALCOLOR_BOLD << TERMINALCOLOR_BRIGHT_WHITE << "WARNING: ";
+    std::cout << TERMINALCOLOR_BG_YELLOW << TERMINALCOLOR_BOLD << TERMINALCOLOR_BRIGHT_WHITE << "WARNING: ";
     // Message
-    (cout << ... << args);
+    (std::cout << ... << args);
     // Resets and newline
-    cout << TERMINALCOLOR_RESET << endl;;
+    std::cout << TERMINALCOLOR_RESET << std::cout;
 }
 sf::Texture LoadTexture(const std::string& path);

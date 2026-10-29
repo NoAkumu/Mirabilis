@@ -1,6 +1,5 @@
 #pragma once
 
-#include "engine/core/Window.hpp"
 #include "engine/core/ObjectManager.hpp"
 #include "engine/core/Object.hpp"
 #include "engine/core/Settings.hpp"

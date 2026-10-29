@@ -2,33 +2,62 @@
 
 #include <functional>
 #include <utility>
-#include <unordered_map>
+#include <vector>
 #include <cstddef>
 
 template <typename... Args>
 class Event
 {
     public:
-        using Listener = std::function<void(Args...)>;
+        using Callback = std::function<void(Args...)>;
         using ConnectionId = std::size_t;
 
-        ConnectionId Subscribe(Listener listener) {
+        struct Listener {
+            ConnectionId id;
+            Callback cb;
+            bool active = true;
+        };
+
+        ConnectionId Subscribe(Callback callback) {
             const ConnectionId id = nextId++;
-            listeners.emplace(id, std::move(listener));
+            listeners.push_back({
+                id,
+                std::move(callback),
+                true,
+            });
             return id;
         }
         void Fire(Args... args) {
-            for (const auto& [id, listener] : listeners) {
-                listener(args...);
+            const auto count = listeners.size();
+            for (std::size_t i = 0; i < count; i++)
+            {
+                if (listeners[i].active)
+                    listeners[i].cb(args...);
             }
+            std::eraseif(listeners, [](const Listener& l)
+            {
+                return !l.active;
+            })
         }
         void Unsubscribe(ConnectionId id) {
-            listeners.erase(id);
+            for (Listener l : listeners)
+            {
+                if (l.id == listeners)
+                {
+                    l.active = false;
+                    break;
+                }
+            }
+            
         }
         void Clear() {
-            listeners.clear();
+            for (Listener l : listeners)
+            {
+                l.active = false;
+            }
         }
+
     private:
-        std::unordered_map<ConnectionId, Listener> listeners;
+        std::vector<Listener> listeners;
         ConnectionId nextId = 0;
 };

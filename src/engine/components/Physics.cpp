@@ -6,7 +6,7 @@ void Physics::Awake() {
 
     assert(collision != nullptr);
     
-    collision->OnCollide.Subscribe([this](const CollisionData& a) {
+    connectionId = collision->OnCollide.Subscribe([this](const CollisionData& a) {
         if(a.normal.x != 0 && velocity.x * a.normal.x > 0.0f) {
             velocity.x = 0;
         }
@@ -24,6 +24,12 @@ void Physics::FixedUpdate() {
     }
     velocity += actualaccel * Time::fixedDt;
     owner->Position += velocity * Time::fixedDt;
+}
+
+void Physics::OnDestroy() {
+    if (collision)
+        collision->OnCollide.Unsubscribe(connectionId);
+    collision = nullptr;
 }
 
 void Physics::AddVelocity(Vector2 v) {

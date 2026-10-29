@@ -23,14 +23,14 @@ class  ObjectManager {
             for(auto& obj : objects) {
                 obj->FixedUpdate();
             }
-            //This collision check is probably ass, but i can't think of a better alternative at 5 AM
+            //This collision check is ass, temporary solution
             for (std::size_t i = 0; i < objects.size(); i++)
             {
                 Collision* a = objects[i].get()->GetComponent<Collision>();
                 if (a == nullptr || !a->IsEnabled()){
                     continue;
                 }
-                for (std::size_t j = 0; j < objects.size(); j++)
+                for (std::size_t j = i + 1; j < objects.size(); j++)
                 {
                     if (objects[i] == objects[j]) {
                         continue;
@@ -48,6 +48,7 @@ class  ObjectManager {
                         continue;
                     }
                     a->PullPosition(*b);
+                    b->PullPosition(*a);
                 }
             }
         };

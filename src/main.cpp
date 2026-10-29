@@ -24,7 +24,7 @@ void LateUpdate() {
 int main() {
     Config = Load();
 
-    sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+    auto desktop = Renderer::getDesktop();
 
     // Clocks
     sf::Clock clock;
@@ -34,12 +34,12 @@ int main() {
     float accumulator = 0.0f;
 
     // Window startup
-    Main_Window = sf::RenderWindow(sf::VideoMode({Config.WIDTH,Config.HEIGHT}), "SFML", sf::Style::Close | sf::Style::Titlebar);
-    Main_Window.setPosition(sf::Vector2i((desktop.size.x/2)-(Config.WIDTH/2),(desktop.size.y/2)-(Config.HEIGHT/2)));
-    Main_Window.setFramerateLimit(Config.maxFPS);
+    Window& P_Window = Renderer::createWindow(Vector2((desktop.size.x/2)-(Config.WIDTH/2),(desktop.size.y/2)-(Config.HEIGHT/2)), Vector2(Config.WIDTH,Config.HEIGHT), "Main");
+    
+    P_Window.setFramerateLimit(Config.maxFPS);
     Time::fixedDt = 1.0f/ static_cast<float>(Config.maxFPS);
 
-    while (Main_Window.isOpen())
+    while (P_Window.isOpen())
     {
         // Clock to count DeltaTime
         sf::Time deltaTimer = dtclock.restart();
@@ -48,13 +48,13 @@ int main() {
         
         accumulator += Time::deltaTime;
 
-        while (const std::optional event = Main_Window.pollEvent())
+        while (const std::optional event = P_Window.pollEvent())
         {
             if(event->is<sf::Event::Closed>())
-                Main_Window.close();
+                P_Window.close();
         }
         // Clear Window for Next Rendering
-        Main_Window.clear(sf::Color::White);
+        P_Window.clear(sf::Color::White);
 
         // Input Detection Step
         MainInput.Update();
@@ -66,14 +66,15 @@ int main() {
             accumulator -= Time::fixedDt;
         }
         // Update Steps
-        Render();
         Update();
+
+        Render();
         LateUpdate();
         
         // Display whats been rendered 
-        Main_Window.display();
+        P_Window.display();
     }
-
+    
     bool saved = Save(Config);
     if (saved) {
         Print("Saved Config Sucessfully!");

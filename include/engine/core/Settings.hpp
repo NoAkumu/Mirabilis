@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-using namespace std;
 
 struct Configs
 {
@@ -10,8 +9,8 @@ struct Configs
     int maxFPS = 165;
 };
 
-extern string AssetPath;
-extern string SpritePath;
+extern std::string AssetPath;
+extern std::string SpritePath;
 
 bool Save(Configs c);
 Configs Load();
