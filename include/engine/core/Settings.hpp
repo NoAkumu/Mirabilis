@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 
+
 struct Configs
 {
     int WIDTH = 1280;
@@ -13,6 +14,7 @@ extern std::string AssetPath;
 extern std::string SpritePath;
 
 bool Save(Configs c);
+void Save();
 Configs Load();
 
 inline Configs Config;

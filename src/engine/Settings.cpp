@@ -1,4 +1,5 @@
 #include "engine/core/Settings.hpp"
+#include "engine/core/Utils.hpp"
 #include <iostream>
 #include <string>
 #include "tinyxml2.h"
@@ -50,6 +51,11 @@ Configs Load() {
     XMLError result = doc.LoadFile(configPath.c_str());
     if (result != XML_SUCCESS)
     {
+        if (result == XML_ERROR_FILE_NOT_FOUND)
+        {
+            Save();
+        }
+        
         throw std::runtime_error("Error: Couldn't load Config file (should be located at 'Assets/config.xml')");
     }
 
@@ -83,11 +89,30 @@ XMLElement* SetValue(XMLDocument& doc, std::string key) {
 void SetValue(XMLDocument& doc, XMLElement* elmnt, std::string key, auto value) {
     XMLElement* elem = elmnt->FirstChildElement(key.c_str());
     if (elem == nullptr) {
-        elem = doc.NewElement(key);
+        elem = doc.NewElement(key.c_str());
         elmnt->InsertEndChild(elem);
     }
     
-    elem->SetText(std::to_string(value).c_str())
+    elem->SetText(std::to_string(value).c_str());
+}
+
+void Save() {
+    XMLDocument doc;
+
+    // Setting <config> header
+    XMLElement* conf = SetValue(doc, "config");
+    // Setting Screen Width and Height
+    SetValue(doc, conf, "width", 1280);
+    SetValue(doc, conf, "height", 720);
+    // Setting MaxFPS
+    SetValue(doc, conf, "maxFPS", 60);
+    //Setting Fullscreen value
+    SetValue(doc, conf, "fullscreen", false);
+
+    if (doc.SaveFile(configPath.c_str()) == XML_SUCCESS)
+    {
+        Error("Choose a god and start praying, error when saving default save file: ", doc.ErrorStr());
+    }
 }
 
 bool Save(Configs c) {
