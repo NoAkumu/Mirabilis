@@ -1,4 +1,5 @@
 #include "engine/components/Camera.hpp"
+#include "engine/core/Settings.hpp"
 
 void Camera::Update() {
     CameraView.setCenter(owner->Position);
