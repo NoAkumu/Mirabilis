@@ -51,7 +51,7 @@ void Print(const Args&... args) {
     // Message
     (std::cout << ... << args);
     // Resets and newline
-    std::cout << std::cout;
+    std::cout << std::endl;
 }
 template <typename... Args>
 void Error(const Args&... args) {
@@ -60,7 +60,7 @@ void Error(const Args&... args) {
     // Message
     (std::cout << ... << args);
     // Resets and newline
-    std::cout << TERMINALCOLOR_RESET << std::cout;
+    std::cout << TERMINALCOLOR_RESET << std::endl;
 }
 template <typename... Args>
 void Warn(const Args&... args) {
@@ -69,6 +69,6 @@ void Warn(const Args&... args) {
     // Message
     (std::cout << ... << args);
     // Resets and newline
-    std::cout << TERMINALCOLOR_RESET << std::cout;
+    std::cout << TERMINALCOLOR_RESET << std::endl;
 }
 sf::Texture LoadTexture(const std::string& path);
