@@ -66,8 +66,9 @@ int main() {
             accumulator -= Time::fixedDt;
         }
         // Update Steps
-        Render();
         Update();
+
+        Render();
         LateUpdate();
         
         // Display whats been rendered 
