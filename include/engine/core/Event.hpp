@@ -2,6 +2,7 @@
 
 #include <functional>
 #include <utility>
+#include <iterator>
 #include <vector>
 #include <cstddef>
 
@@ -20,7 +21,7 @@ class Event
 
         ConnectionId Subscribe(Callback callback) {
             const ConnectionId id = nextId++;
-            listeners.push_back({
+            waitlist.push_back({
                 id,
                 std::move(callback),
                 true,
@@ -28,6 +29,13 @@ class Event
             return id;
         }
         void Fire(Args... args) {
+            listeners.insert(
+                listeners.end(),
+                std::make_move_iterator(waitlist.begin()),
+                std::make_move_iterator(waitlist.end())
+            );
+            waitlist.clear();
+
             const auto count = listeners.size();
             for (std::size_t i = 0; i < count; i++)
             {
@@ -60,6 +68,7 @@ class Event
         }
 
     private:
+        std::vector<Listener>  waitlist;
         std::vector<Listener> listeners;
         ConnectionId nextId = 0;
 };
