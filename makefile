@@ -1,6 +1,6 @@
 CXX := g++
 
-CXXFLAGS := -Wall -Wextra -Iinclude
+CXXFLAGS := -std=c++20 -Wall -Wextra -Iinclude
 
 LDFLAGS := 
 LDLIBS := -lsfml-graphics -lsfml-window -lsfml-system -ltinyxml2
