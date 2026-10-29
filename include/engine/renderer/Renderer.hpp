@@ -26,6 +26,9 @@ class Renderer
         };
 
         static void draw(Window& w, sf::Drawable& d) {
+            w.draw(d);
+        };
+        static void draw(sf::Drawable& d) {
             allWindows.at(0).get()->draw(d);
         };
 
@@ -47,4 +50,16 @@ class Renderer
         static sf::VideoMode getDesktop() {
             return sf::VideoMode::getDesktopMode();
         };
+        
+        static sf::Texture LoadTexture(const std::string& path) {
+            try
+            {
+                return sf::Texture(SpritePath + path);
+            }
+            catch(const std::exception& e)
+            {
+                std::cerr << e.what() << '\n';
+                return sf::Texture(SpritePath + "Debug.png");
+            }
+        }
 };
