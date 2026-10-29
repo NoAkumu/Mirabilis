@@ -1,7 +1,7 @@
 #include "engine/components/Physics.hpp"
 #include "engine/core/Time.hpp"
 
-void Physics::Awake() {
+void Physics::Start() {
     collision = owner->GetComponent<Collision>();
 
     assert(collision != nullptr);

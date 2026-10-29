@@ -16,7 +16,7 @@ class Physics : public Component
     public:
         bool EnableGravity = true;
         Physics() = default;
-        virtual void Awake();
+        virtual void Start();
         virtual void FixedUpdate();
         virtual void OnDestroy();
         void AddVelocity(Vector2 v);

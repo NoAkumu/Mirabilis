@@ -27,7 +27,6 @@ class Component
         // Destructor
         ~Component() = default;
         // Virtual Functions
-        virtual void Awake() {};
         virtual void Start() {};
         virtual void FixedUpdate() {};
         virtual void Update() {};
@@ -36,7 +35,10 @@ class Component
         // Functions
         bool IsEnabled() const;
         void SetEnabled(bool value);
-        Object* Owner() {
+        const Object* getOwner() const {
+            return owner;
+        };
+        Object* getOwner() {
             return owner;
         };
 };
@@ -94,7 +96,7 @@ class Object {
             return reference;
         };
         template <typename T>
-        T* GetComponent() const {
+        T* GetComponent() {
             static_assert(std::is_base_of_v<Component, T>, "T is not a valid Component");
             auto it = std::find_if(
                 components.begin(),
@@ -107,6 +109,21 @@ class Object {
                 return nullptr;
             
             return dynamic_cast<T*>(it->get());
+        };
+        template <typename T>
+        const T* GetComponent() const {
+            static_assert(std::is_base_of_v<Component, T>, "T is not a valid Component");
+            auto it = std::find_if(
+                components.begin(),
+                components.end(),
+                [](const auto& comp) {
+                    return dynamic_cast<T*>(comp.get()) != nullptr;
+                }
+            );
+            if (it == components.end())
+                return nullptr;
+            
+            return dynamic_cast<const T*>(it->get());
         };
         template <typename T>
         void RemoveComponent() {
