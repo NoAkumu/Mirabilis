@@ -4,4 +4,5 @@
 *.desktop
 .vscode
 ./run.sh
-game.out
+*.out
+*.code-workspace
