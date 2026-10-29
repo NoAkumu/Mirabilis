@@ -46,6 +46,9 @@ class Vector2 {
             y *= Scalar;
             return *this;
         }
+        Vector2 operator/(const Vector2& vec) const {
+            return Vector2(x/vec.x, y/vec.y);
+        }
         Vector2 operator/(float Scalar) const {
             return Vector2(x/Scalar, y/Scalar);
         }
@@ -57,6 +60,12 @@ class Vector2 {
         }
         float length() const {
             return std::sqrt(std::pow(x,2)+std::pow(y,2));
+        }
+        Vector2 min(const Vector2& vec) const {
+            return Vector2(std::min(x,vec.x), std::min(y,vec.y));
+        }
+        Vector2 max(const Vector2& vec) const {
+            return Vector2(std::max(x,vec.x), std::max(y,vec.y));
         }
         Vector2 normalized() const {
             return length() ? Vector2(x,y)/length() : Vector2();
