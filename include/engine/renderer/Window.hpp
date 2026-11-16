@@ -1,5 +1,6 @@
 #pragma once
 #include "engine/math/Math.hpp"
+#include "engine/renderer/Color.hpp"
 #include <SFML/Graphics.hpp>
 #include <string>
 
@@ -51,7 +52,7 @@ class Window
         void close() {
             _window.close();
         }
-        void clear(sf::Color c) {
+        void clear(Color c) {
             _window.clear(c);
         }
         void display() {

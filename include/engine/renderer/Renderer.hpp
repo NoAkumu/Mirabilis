@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <utility>
 
+
 #include "engine/renderer/Window.hpp"
 #include "engine/core/Utils.hpp"
 #include "engine/core/Settings.hpp"
@@ -64,3 +65,4 @@ class Renderer
             }
         }
 };
+
