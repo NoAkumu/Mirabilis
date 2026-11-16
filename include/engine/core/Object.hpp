@@ -48,18 +48,11 @@ class Object {
     private:
         bool destroyed = false;
     protected:
-        sf::RectangleShape shape;
         std::vector<std::unique_ptr<Component>> components;
     public:
         // Declaration
-        Object(Vector2 position, Vector2 size, Vector2 AnchorPoint) : Position(position), Size(size), AnchorPoint(AnchorPoint) {
-            shape.setPosition(position);
-            shape.setSize(size);
-        }
-        Object(Vector2 position, Vector2 size) : Position(position), Size(size), AnchorPoint(Vector2(0,0)) {
-            shape.setPosition(position);
-            shape.setSize(size);
-        }
+        Object(Vector2 position, Vector2 size, Vector2 AnchorPoint) : Position(position), Size(size), AnchorPoint(AnchorPoint) {}
+        Object(Vector2 position, Vector2 size) : Position(position), Size(size), AnchorPoint(Vector2(0,0)) {}
         // Destructor
         virtual ~Object() {
             OnDestroy();
@@ -70,7 +63,6 @@ class Object {
         Vector2 Position;
         Vector2 AnchorPoint;
         Vector2 Size;
-        sf::Color Color = sf::Color::Black;
         // Functions
         virtual void Start();
         virtual void FixedUpdate();
