@@ -13,6 +13,6 @@ class Camera : public Component
         Camera(float viewHeight) : viewHeight(viewHeight) {};
         Camera(float viewHeight, float aspectRatio) : viewHeight(viewHeight), aspectRatio(aspectRatio)  {};
         // When migrating this will be deprecated
-        sf::View GetView();
+        sf::View GetView() const;
         virtual void Update();
 };

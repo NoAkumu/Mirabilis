@@ -6,6 +6,6 @@ void Camera::Update() {
     CameraView.setSize(Vector2(static_cast<float>(Config.WIDTH)/Config.HEIGHT,1) * viewHeight);
 }
 
-sf::View Camera::GetView() {
+sf::View Camera::GetView() const {
     return CameraView;
 }
